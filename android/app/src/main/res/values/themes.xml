@@ -1,0 +1,6 @@
+<resources>
+    <style name="Theme.Omega" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">#0F6E56</item>
+        <item name="colorSecondary">#1D9E75</item>
+    </style>
+</resources>

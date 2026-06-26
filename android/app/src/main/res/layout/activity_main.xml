@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="입력 소스" android:layout_marginEnd="8dp"/>
+        <Spinner android:id="@+id/sourceSpinner"
+            android:layout_width="180dp" android:layout_height="wrap_content"/>
+        <Button android:id="@+id/btnConnect"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginStart="12dp" android:text="연결"/>
+        <TextView android:id="@+id/status"
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:layout_marginStart="16dp"
+            android:text="● 대기" android:textSize="16sp"/>
+    </LinearLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="6dp">
+
+        <LinearLayout android:id="@+id/containerLive"
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:paddingStart="4dp" android:paddingEnd="4dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.7" android:text="순번" android:textStyle="bold"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2" android:text="점번호" android:textStyle="bold"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2" android:text="HA(°)" android:textStyle="bold"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2" android:text="VA(°)" android:textStyle="bold"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2" android:text="SD(m)" android:textStyle="bold"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="3" android:text="X, Y, Z" android:textStyle="bold"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="포맷" android:textStyle="bold"/>
+            </LinearLayout>
+            <View android:layout_width="match_parent" android:layout_height="1dp"
+                android:background="#CCCCCC" android:layout_marginTop="4dp"/>
+            <androidx.recyclerview.widget.RecyclerView android:id="@+id/list"
+                android:layout_width="match_parent" android:layout_height="0dp"
+                android:layout_weight="1" android:layout_marginTop="4dp"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginTop="6dp">
+                <TextView android:id="@+id/count" android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:text="측정 0건"/>
+                <CheckBox android:id="@+id/chkGlobal" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="전역좌표 표시"/>
+                <Button android:id="@+id/btnClear" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="지우기" android:layout_marginStart="8dp"/>
+                <Button android:id="@+id/btnExport" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="CSV 내보내기" android:layout_marginStart="8dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout android:id="@+id/containerFree"
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:orientation="vertical" android:visibility="gone">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="전역좌표를 아는 후시점 2점 이상을 관측해 등록하세요." android:textColor="#555555"/>
+            <HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp">
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                    <EditText android:id="@+id/fsPid" android:layout_width="90dp" android:layout_height="wrap_content" android:hint="점번호" android:inputType="text"/>
+                    <EditText android:id="@+id/fsGx" android:layout_width="120dp" android:layout_height="wrap_content" android:hint="전역 X" android:inputType="numberDecimal|numberSigned"/>
+                    <EditText android:id="@+id/fsGy" android:layout_width="120dp" android:layout_height="wrap_content" android:hint="전역 Y" android:inputType="numberDecimal|numberSigned"/>
+                    <Button android:id="@+id/btnFsAdd" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="현재 측정값을 후시로 추가"/>
+                </LinearLayout>
+            </HorizontalScrollView>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="6dp">
+                <Button android:id="@+id/btnFsSolve" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="변환 계산"/>
+                <Button android:id="@+id/btnFsClear" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="초기화" android:layout_marginStart="8dp"/>
+            </LinearLayout>
+            <ScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:layout_marginTop="8dp">
+                <TextView android:id="@+id/fsList" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:fontFamily="monospace" android:textSize="13sp"/>
+            </ScrollView>
+            <TextView android:id="@+id/fsResult" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:textColor="#0B5340" android:layout_marginTop="6dp"
+                android:text="후시점을 등록하고 [변환 계산]을 누르세요."/>
+        </LinearLayout>
+
+        <LinearLayout android:id="@+id/containerBlock"
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:orientation="vertical" android:visibility="gone">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:text="설계 vs 실측을 best-fit 정합해 합격/불합격을 판정합니다. (3점 이상)" android:textColor="#555555"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="허용(mm)"/>
+                <EditText android:id="@+id/bfTol" android:layout_width="64dp" android:layout_height="wrap_content" android:text="3.0" android:inputType="numberDecimal"/>
+            </LinearLayout>
+            <HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp">
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+                    <EditText android:id="@+id/bfPid" android:layout_width="80dp" android:layout_height="wrap_content" android:hint="점번호" android:inputType="text"/>
+                    <EditText android:id="@+id/bfDx" android:layout_width="90dp" android:layout_height="wrap_content" android:hint="설계X" android:inputType="numberDecimal|numberSigned"/>
+                    <EditText android:id="@+id/bfDy" android:layout_width="90dp" android:layout_height="wrap_content" android:hint="설계Y" android:inputType="numberDecimal|numberSigned"/>
+                    <EditText android:id="@+id/bfDz" android:layout_width="90dp" android:layout_height="wrap_content" android:hint="설계Z" android:inputType="numberDecimal|numberSigned"/>
+                    <EditText android:id="@+id/bfMx" android:layout_width="90dp" android:layout_height="wrap_content" android:hint="실측X" android:inputType="numberDecimal|numberSigned"/>
+                    <EditText android:id="@+id/bfMy" android:layout_width="90dp" android:layout_height="wrap_content" android:hint="실측Y" android:inputType="numberDecimal|numberSigned"/>
+                    <EditText android:id="@+id/bfMz" android:layout_width="90dp" android:layout_height="wrap_content" android:hint="실측Z" android:inputType="numberDecimal|numberSigned"/>
+                </LinearLayout>
+            </HorizontalScrollView>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="6dp">
+                <Button android:id="@+id/btnBfAdd" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="행 추가"/>
+                <Button android:id="@+id/btnBfFill" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="현재 측정값을 실측으로" android:layout_marginStart="8dp"/>
+                <Button android:id="@+id/btnBfRun" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="정합 실행" android:layout_marginStart="8dp"/>
+                <Button android:id="@+id/btnBfClear" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="초기화" android:layout_marginStart="8dp"/>
+            </LinearLayout>
+            <ScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:layout_marginTop="8dp">
+                <TextView android:id="@+id/bfList" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:fontFamily="monospace" android:textSize="13sp"/>
+            </ScrollView>
+            <TextView android:id="@+id/bfResult" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:textStyle="bold" android:textSize="16sp" android:layout_marginTop="6dp"
+                android:text="행을 추가하고 [정합 실행]을 누르세요."/>
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>
